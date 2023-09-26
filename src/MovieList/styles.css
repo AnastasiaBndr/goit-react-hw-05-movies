@@ -1,0 +1,46 @@
+.movie-item {
+  width: 220px;
+  list-style-type: none;
+  margin: 10px;
+}
+
+.movies-list {
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.movies-list-title {
+  display: inline-block;
+  margin: 0 auto;
+  margin-top: 100px;
+}
+
+.load-more-button {
+  background: none;
+  color: pink;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  background-color: #222;
+  width: 100px;
+  height: 50px;
+
+  border-radius: 20px;
+
+  transition: color 0.2s ease;
+  transition: background-color 0.2s ease;
+}
+
+.load-more-button:hover,
+.load-more-button:focus {
+  color: #222;
+  background-color: coral;
+}
+
+.movies-list-container {
+  justify-content: center;
+}

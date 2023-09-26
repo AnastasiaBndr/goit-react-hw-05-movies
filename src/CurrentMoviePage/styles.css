@@ -1,0 +1,9 @@
+.movie-page-container {
+  margin-top: 100px;
+
+  display: flex;
+}
+
+.description {
+  margin-left: 40px;
+}
