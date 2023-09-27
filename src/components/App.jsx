@@ -48,8 +48,8 @@ export default function App() {
   }
 
   return (<Routes>
-    <Route path='/' element={<Header />}>
-      <Route path="goit-react-hw-05-movies" element={<MovieList movies={movies} click={onClickMovie} loadMore={handleLoadMore} />} />
+    <Route path='/goit-react-hw-05-movies' element={<Header />}>
+      <Route path="movies" element={<MovieList movies={movies} click={onClickMovie} loadMore={handleLoadMore} />} />
       <Route path={currentMovie.id + ""} element={<CurrentMoviePage movie={currentMovie} />}>
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
         <Route path={'fgfg'} element={<></>} />
