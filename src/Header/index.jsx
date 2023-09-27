@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom"
+import { Outlet, Link } from "react-router-dom"
 import './styles.css'
 
 const Header = () => {
@@ -6,8 +6,8 @@ const Header = () => {
         <header>
             <nav>
                 <ul className="navbar">
-                    <li className="header-item"><button>Home</button></li>
-                    <li className="header-item"><button>Movies</button></li>
+                    <Link to="/movies"><li className="header-item"><button>Home</button></li></Link>
+                    <Link to='/movies'><li className="header-item"><button>Movies</button></li></Link>
                 </ul>
             </nav>
         </header>

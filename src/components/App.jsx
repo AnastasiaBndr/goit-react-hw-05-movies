@@ -4,13 +4,15 @@ import { Route, Routes } from 'react-router-dom';
 import Header from 'Header';
 import MovieList from 'MovieList';
 import CurrentMoviePage from 'CurrentMoviePage';
+import Cast from 'Cast';
 
 const apiComponent = new ApiComponent();
 
 export default function App() {
 
   const [movies, setMovies] = useState([]);
-  const [currentMovie, setCurrentMovie] = useState({});
+  const [currentMovie, setCurrentMovie] = useState(JSON.parse(localStorage.getItem("movie_id")));
+
   useEffect(() => {
     apiComponent.fetchMovies("")
       .then(data => {
@@ -26,7 +28,9 @@ export default function App() {
   }, [])
 
   const onClickMovie = async (movie) => {
-    await setCurrentMovie(movie)
+    await localStorage.setItem("movie_id", JSON.stringify(movie));
+    await setCurrentMovie(movie);
+
   }
 
   const handleLoadMore = async () => {
@@ -46,9 +50,11 @@ export default function App() {
 
   return (<Routes>
     <Route path='/' element={<Header />}>
-      <Route path="goit-react-hw-05-movies" element={<MovieList movies={movies} click={onClickMovie} loadMore={handleLoadMore} />} />
-      {console.log(currentMovie)}
-      <Route path={currentMovie.id + ""} element={<CurrentMoviePage movie={currentMovie} />} />
+      <Route path="movies" element={<MovieList movies={movies} click={onClickMovie} loadMore={handleLoadMore} />} />
+      <Route path={currentMovie.id + ""} element={<CurrentMoviePage movie={currentMovie} />}>
+        <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
+        <Route path={'fgfg'} element={<></>} />
+      </Route>
     </Route>
 
   </Routes>

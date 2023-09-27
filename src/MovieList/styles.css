@@ -33,6 +33,9 @@
 
   transition: color 0.2s ease;
   transition: background-color 0.2s ease;
+
+  display: block;
+  margin: 0 auto;
 }
 
 .load-more-button:hover,

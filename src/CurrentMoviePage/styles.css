@@ -7,3 +7,7 @@
 .description {
   margin-left: 40px;
 }
+
+.movie-large-image-item {
+  height: 800px;
+}

@@ -9,7 +9,7 @@ const MovieList = ({ movies, click, loadMore }) => {
                 return (<li className="movie-item" key={movie.id} onClick={() => click(movie)} >
                     <Link to={`/${movie.id}`}>
                         <img src={movie.smallImageFullPath} alt="" />
-                        <p>{movie.title ?? movie.name}</p>
+                        <h3>{movie.title ?? movie.name}</h3>
                     </Link>
                 </li>)
             })}</ul>
