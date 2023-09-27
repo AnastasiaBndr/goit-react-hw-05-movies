@@ -48,4 +48,17 @@ export class ApiComponent {
       })
       .catch(err => {});
   }
+
+  async findMovieReviews(id) {
+    const currentUrl = `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${
+      this.#KEY
+    }`;
+
+    return await axios
+      .get(currentUrl)
+      .then(resp => {
+        return resp.data;
+      })
+      .catch(err => {});
+  }
 }

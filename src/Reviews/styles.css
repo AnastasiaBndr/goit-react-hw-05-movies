@@ -1,0 +1,21 @@
+.reviews-container {
+  list-style-type: none;
+}
+.review-item > p {
+  margin: 5px;
+}
+.review-item {
+  margin-bottom: 30px;
+}
+
+.author {
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+.username {
+  color: rgb(111, 111, 111);
+  display: block;
+}
+.created-at {
+  color: rgb(111, 111, 111);
+}
