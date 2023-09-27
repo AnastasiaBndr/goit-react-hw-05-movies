@@ -17,7 +17,7 @@ const CurrentMoviePage = ({ movie }) => {
             <p>Vote average:  {movie.vote_average}</p>
 
 
-            <Link to={"/" + movie.id + "/cast"}><h3>Cast</h3></Link>
+            <Link to={"/goit-react-hw-05-movies/" + movie.id + "/cast"}><h3>Cast</h3></Link>
             <Outlet />
         </div>
     </div>);
