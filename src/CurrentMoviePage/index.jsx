@@ -16,8 +16,14 @@ const CurrentMoviePage = ({ movie }) => {
             <p>Popularity: {movie.popularity}</p>
             <p>Vote average:  {movie.vote_average}</p>
 
+            <nav className="movie-page-navigation">
+                <Link to={"/" + movie.id + "/cast"}>
+                    <h3>Cast</h3></Link>
+                <Link to={'/' + movie.id + "/reviews"}>
+                    <h3>Reviews</h3>
+                </Link>
+            </nav>
 
-            <Link to={"/" + movie.id + "/cast"}><h3>Cast</h3></Link>
             <Outlet />
         </div>
     </div>);

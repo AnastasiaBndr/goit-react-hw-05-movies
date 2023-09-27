@@ -5,6 +5,7 @@ import Header from 'Header';
 import MovieList from 'MovieList';
 import CurrentMoviePage from 'CurrentMoviePage';
 import Cast from 'Cast';
+import Reviews from 'Reviews';
 
 const apiComponent = new ApiComponent();
 
@@ -22,12 +23,16 @@ export default function App() {
           return movie;
         });
         setMovies(data.results);
+        if (localStorage.getItem("current_movie") !== null)
+          setCurrentMovie(JSON.parse(localStorage.getItem("current_movie")));
       }
       )
       .catch();
+
   }, [])
 
   const onClickMovie = async (movie) => {
+    await localStorage.setItem("current_movie", JSON.stringify(movie));
     await setCurrentMovie(movie);
 
   }
@@ -52,7 +57,7 @@ export default function App() {
       <Route path="goit-react-hw-05-movies" element={<MovieList movies={movies} click={onClickMovie} loadMore={handleLoadMore} />} />
       <Route path={currentMovie.id + ""} element={<CurrentMoviePage movie={currentMovie} />}>
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
-        <Route path={'fgfg'} element={<></>} />
+        <Route path={'reviews'} element={<Reviews movie={currentMovie} apiComponent={apiComponent} />} />
       </Route>
     </Route>
 
