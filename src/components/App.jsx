@@ -51,7 +51,7 @@ export default function App() {
   return (<Routes>
     <Route path='/' element={<Header />}>
       <Route path="movies" element={<MovieList movies={movies} click={onClickMovie} loadMore={handleLoadMore} />} />
-      {currentMovie.id &&
+      {currentMovie &&
         <Route path={currentMovie.id + ""} element={<CurrentMoviePage movie={currentMovie} />}>
           <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
           <Route path={'fgfg'} element={<></>} />
