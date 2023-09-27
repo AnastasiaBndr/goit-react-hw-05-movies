@@ -21,7 +21,7 @@ export default function App() {
           movie.largeImageFullPath = `https://image.tmdb.org/t/p/w400${movie.poster_path}?api_key=${apiComponent.getkey()}`;
           return movie;
         });
-        setMovies(data.results)
+        setMovies(data.results);
       }
       )
       .catch();
@@ -51,10 +51,11 @@ export default function App() {
   return (<Routes>
     <Route path='/' element={<Header />}>
       <Route path="movies" element={<MovieList movies={movies} click={onClickMovie} loadMore={handleLoadMore} />} />
-      <Route path={currentMovie.id + ""} element={<CurrentMoviePage movie={currentMovie} />}>
-        <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
-        <Route path={'fgfg'} element={<></>} />
-      </Route>
+      {currentMovie.id &&
+        <Route path={currentMovie.id + ""} element={<CurrentMoviePage movie={currentMovie} />}>
+          <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
+          <Route path={'fgfg'} element={<></>} />
+        </Route>}
     </Route>
 
   </Routes>
