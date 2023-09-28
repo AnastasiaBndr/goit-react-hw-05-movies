@@ -20,7 +20,7 @@ export default function App() {
   const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(false);
 
   useEffect(() => {
-    apiComponent.fetchMoviesbyName1(currentInput, apiComponent.links.trendingUrl)
+    apiComponent.fetchMoviesbyName1("", apiComponent.links.trendingUrl)
       .then(data => {
         data.results.filter(movie => movie.poster_path !== null).map(movie => {
           movie.smallImageFullPath = `https://image.tmdb.org/t/p/w200${movie.poster_path}?api_key=${apiComponent.getkey()}`;
