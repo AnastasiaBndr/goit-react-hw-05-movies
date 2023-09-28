@@ -7,6 +7,20 @@ export class ApiComponent {
 
   limit = 20;
   page = 1;
+
+  links = {
+    trendingUrl: 'https://api.themoviedb.org/3/trending/all/week?',
+    searchMovieUrl: 'https://api.themoviedb.org/3/search/movie',
+    credits: 'https://api.themoviedb.org/3/credit/credit_id',
+    reviews: 'https://api.themoviedb.org/3/movie/reviews',
+    details: 'https://api.themoviedb.org/3/movie/',
+  };
+
+  params = {
+    reviews: '/reviews',
+    credits: '/credits',
+  };
+
   getkey() {
     return this.#KEY;
   }
@@ -15,50 +29,54 @@ export class ApiComponent {
     api_key: this.#KEY,
   };
 
-  fetchMovies(query) {
-    const searchParams = new URLSearchParams({
-      ...this.baseSearchParams,
-      query: query,
-      page: this.page,
-    });
+  fetchMoviesbyName1(query, url) {
+    const options = {
+      method: 'GET',
+      url: url,
+      params: {
+        query: query,
+        page: this.page,
+      },
+      headers: {
+        accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNGRiNWJkN2U5YWExY2M0MzBhZjAwYzVhMDU2ZDAxMCIsInN1YiI6IjY1MTJjM2YyOGUyYmE2MDEwMTlmZjg5YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7zJPhqUXyDij87cKqpJpgtQnm376t0iMEdo8YRFnUG4',
+      },
+    };
+
     return axios
-      .get(`${this.#URL + searchParams.toString()}`)
-      .then(resp => {
-        console.log(this.#URL + searchParams.toString());
-        return resp.data;
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        return response.data;
       })
-      .catch(err =>
-        Notiflix.Report.failure(
-          'Server Error!',
-          'There is something wrong..',
-          'Okaaay'
-        )
-      );
+      .catch(function (error) {
+        console.error(error);
+      });
   }
 
-  async findMovieById(id) {
-    const currentUrl = `https://api.themoviedb.org/3/movie/${id}/credits?api_key=${
-      this.#KEY
-    }`;
+  fetchMoviesById(id, url, param) {
+    const options = {
+      method: 'GET',
+      url: url + id + param,
+      params: {
+        page: this.page,
+      },
+      headers: {
+        accept: 'application/json',
+        Authorization:
+          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNGRiNWJkN2U5YWExY2M0MzBhZjAwYzVhMDU2ZDAxMCIsInN1YiI6IjY1MTJjM2YyOGUyYmE2MDEwMTlmZjg5YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7zJPhqUXyDij87cKqpJpgtQnm376t0iMEdo8YRFnUG4',
+      },
+    };
 
-    return await axios
-      .get(currentUrl)
-      .then(resp => {
-        return resp.data;
+    return axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data);
+        return response.data;
       })
-      .catch(err => {});
-  }
-
-  async findMovieReviews(id) {
-    const currentUrl = `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${
-      this.#KEY
-    }`;
-
-    return await axios
-      .get(currentUrl)
-      .then(resp => {
-        return resp.data;
-      })
-      .catch(err => {});
+      .catch(function (error) {
+        console.error(error);
+      });
   }
 }

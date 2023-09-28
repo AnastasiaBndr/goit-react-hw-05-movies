@@ -6,7 +6,7 @@ const Reviews = ({ movie, apiComponent }) => {
 
     useEffect(() => {
         async function fetchMovieInfo() {
-            const review = await apiComponent.findMovieReviews(movie.id);
+            const review = await apiComponent.fetchMoviesById(movie.id, apiComponent.links.details, apiComponent.params.reviews);
 
             setReviews(review);
         }
@@ -14,6 +14,7 @@ const Reviews = ({ movie, apiComponent }) => {
     }, [apiComponent, movie.id]);
 
     return (<><ul className="reviews-container">
+        {console.log(reviews)}
         {reviews ? reviews.results.map(review => {
             return (
                 <li className="review-item" key={review.id}>

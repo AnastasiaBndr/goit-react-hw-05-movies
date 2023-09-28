@@ -1,7 +1,7 @@
 import './styles.css'
 import { Link } from 'react-router-dom'
 
-const MovieList = ({ movies, click, loadMore }) => {
+const MovieList = ({ movies, click, loadMore, loadMoreIsVisible }) => {
     return (<div className="movies-list-container">
         <h1 className="movies-list-title">Tranding now</h1>
         <ul className="movies-list">
@@ -13,7 +13,7 @@ const MovieList = ({ movies, click, loadMore }) => {
                     </Link>
                 </li>)
             })}</ul>
-        <button className="load-more-button" type="button" onClick={loadMore}>Load more</button>
+        {loadMoreIsVisible && <button className="load-more-button" type="button" onClick={loadMore}>Load more</button>}
     </div>)
 }
 

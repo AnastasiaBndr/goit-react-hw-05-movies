@@ -6,7 +6,7 @@ const Cast = ({ movie, apiComponent }) => {
 
     useEffect(() => {
         async function fetchMovieInfo() {
-            const movieInfo = await apiComponent.findMovieById(movie.id);
+            const movieInfo = await apiComponent.fetchMoviesById(movie.id, apiComponent.links.details, apiComponent.params.credits);
 
             const updatedCast = movieInfo.cast.map(actor => {
                 if (actor.profile_path !== null) {
@@ -15,7 +15,7 @@ const Cast = ({ movie, apiComponent }) => {
                     actor.ImageFullPath = 'http://localhost:3000/goit-react-hw-05-movies/static/media/profile_image_not_found.d3395e8a7ba4b7bc3a15.jpg';
                 }
                 return actor;
-            });
+            }).filter(actor => actor.profile_path !== null);
 
             movieInfo.cast = updatedCast;
 

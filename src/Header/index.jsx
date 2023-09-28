@@ -7,7 +7,7 @@ const Header = () => {
             <nav>
                 <ul className="navbar">
                     <Link to="/goit-react-hw-05-movies"><li className="header-item"><button>Home</button></li></Link>
-                    <Link to='/goit-react-hw-05-movies'><li className="header-item"><button>Movies</button></li></Link>
+                    <Link to='/search'><li className="header-item"><button>Movies</button></li></Link>
                 </ul>
             </nav>
         </header>
