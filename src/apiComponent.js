@@ -1,5 +1,4 @@
 import axios from 'axios';
-import Notiflix from 'notiflix';
 
 export class ApiComponent {
   #URL = 'https://api.themoviedb.org/3/trending/all/week?';
