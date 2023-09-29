@@ -1,4 +1,4 @@
-import { Outlet, Link } from "react-router-dom"
+import { Outlet, NavLink } from "react-router-dom"
 import './styles.css'
 
 const Header = () => {
@@ -6,8 +6,8 @@ const Header = () => {
         <header>
             <nav>
                 <ul className="navbar">
-                    <Link to="/goit-react-hw-05-movies"><li className="header-item"><button>Home</button></li></Link>
-                    <Link to='/search'><li className="header-item"><button>Movies</button></li></Link>
+                    <NavLink activeClassName="active-button" to="/goit-react-hw-05-movies"><li className="header-item"><button>Home</button></li></NavLink>
+                    <NavLink activeClassName="active-button" to='/search'><li className="header-item"><button>Movies</button></li></NavLink>
                 </ul>
             </nav>
         </header>

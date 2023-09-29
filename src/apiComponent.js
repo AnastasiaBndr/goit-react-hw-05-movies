@@ -43,10 +43,10 @@ export class ApiComponent {
       },
     };
 
+
     return axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
         return response.data;
       })
       .catch(function (error) {
@@ -71,7 +71,6 @@ export class ApiComponent {
     return axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
         return response.data;
       })
       .catch(function (error) {

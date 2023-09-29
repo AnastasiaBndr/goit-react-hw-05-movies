@@ -17,7 +17,7 @@
   margin-top: 100px;
 }
 
-.load-more-button {
+.load-more-button, .go-back-button {
   background: none;
   color: pink;
   border: none;
@@ -26,14 +26,19 @@
   cursor: pointer;
   outline: inherit;
   background-color: #222;
-  width: 100px;
-  height: 50px;
-
   border-radius: 20px;
 
   transition: color 0.2s ease;
   transition: background-color 0.2s ease;
+}
 
+.go-back-button{
+  width: 80px;
+  height: 40px;
+}
+.load-more-button{
+  width: 100px;
+  height: 50px;
   display: block;
   margin: 0 auto;
 }

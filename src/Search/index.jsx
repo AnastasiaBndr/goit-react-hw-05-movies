@@ -1,8 +1,11 @@
 import './styles.css';
 import SearchIcon from './icons.svg';
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
-const Search = ({ movies, click, loadMore, onClickSubmit, query, loadMoreIsVisible }) => {
+
+const Search = ({ movies, click, loadMore, onClickSubmit, query, loadMoreIsVisible, inputValue }) => {
+    
+    const location = useLocation();
     return (<div className="movies-list-container">
         <form className="SearchForm" onSubmit={onClickSubmit}>
             <button type="button" className="SearchForm-button" onClick={onClickSubmit}>
@@ -14,6 +17,7 @@ const Search = ({ movies, click, loadMore, onClickSubmit, query, loadMoreIsVisib
             <input
                 className="SearchForm-input"
                 type="text"
+                value={inputValue ?? ""}
                 autoComplete="off"
                 autoFocus
                 placeholder="Search images and photos"
@@ -24,7 +28,7 @@ const Search = ({ movies, click, loadMore, onClickSubmit, query, loadMoreIsVisib
         <ul className="movies-list">
             {movies.map(movie => {
                 return (<li className="movie-item" key={movie.id} onClick={() => click(movie)} >
-                    <Link to={movie.id+""}>
+                    <Link to={movie.id+""} state={{from:location}}>
                         <img src={movie.smallImageFullPath} alt="" />
                         <h3>{movie.title ?? movie.name}</h3>
                     </Link>

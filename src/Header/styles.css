@@ -37,7 +37,9 @@ button {
   transition: color 0.4s ease;
 }
 
+
+
 button:hover,
-button:focus {
+button:focus, .active-button {
   color: aqua;
 }

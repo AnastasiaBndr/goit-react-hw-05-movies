@@ -1,5 +1,5 @@
 .movie-page-container {
-  margin-top: 100px;
+  margin-top: 40px;
 
   display: flex;
 }
@@ -15,4 +15,9 @@
 .movie-page-navigation {
   display: flex;
   justify-content: space-around;
+}
+
+.go-back-button{
+  display: block;
+  margin-top: 100px;
 }

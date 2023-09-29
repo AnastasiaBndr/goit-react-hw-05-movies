@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ApiComponent } from 'apiComponent';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useSearchParams} from 'react-router-dom';
 import { lazy, Suspense } from 'react';
 import { CirclesWithBar } from 'react-loader-spinner';
 
@@ -12,15 +12,16 @@ import Search from 'Search';
 
 const apiComponent = new ApiComponent();
 const CurrentMoviePageLazy=lazy(()=>import("CurrentMoviePage"));
+const throttle = require('lodash.throttle');
 
 export default function App() {
 
   const [movies, setMovies] = useState([]);
   const [trandingMovies, setTrandingMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState({});
-  const [query, setQuery] = useState("");
   const [currentInput, setCurrentInput] = useState('');
   const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(false);
+  const [searchParams, setSearchParams]=useSearchParams("");
 
   useEffect(() => {
     apiComponent.fetchMoviesbyName1("", apiComponent.links.trendingUrl)
@@ -40,6 +41,23 @@ export default function App() {
       .catch();
 
   }, [])
+
+  useEffect(() => {
+    apiComponent.fetchMoviesbyName1(searchParams.get('query'), apiComponent.links.searchMovieUrl)
+      .then(data => {
+        data.results.filter(movie => movie.poster_path !== null).map(movie => {
+          movie.smallImageFullPath = `https://image.tmdb.org/t/p/w200${movie.poster_path}?api_key=${apiComponent.getkey()}`;
+          movie.largeImageFullPath = `https://image.tmdb.org/t/p/w400${movie.poster_path}?api_key=${apiComponent.getkey()}`;
+          return movie;
+        });
+        setMovies(data.results);
+        setLoadMoreIsVisible(true);
+        if (localStorage.getItem("current_movie") !== null)
+          setCurrentMovie(JSON.parse(localStorage.getItem("current_movie")));
+      }
+      )
+
+  }, [searchParams])
 
   const onClickMovie = async (movie) => {
     await localStorage.setItem("current_movie", JSON.stringify(movie));
@@ -93,7 +111,7 @@ export default function App() {
     var moviesTemp;
 
     try {
-      const data = await apiComponent.fetchMoviesbyName1(query, apiComponent.links.searchMovieUrl);
+      const data = await apiComponent.fetchMoviesbyName1(searchParams.get('query'), apiComponent.links.searchMovieUrl);
 
       const updatedMovies = data.results
         .filter((movie) => movie.poster_path !== null)
@@ -105,7 +123,7 @@ export default function App() {
 
       moviesTemp = data.total_pages;
       setMovies(updatedMovies);
-      setCurrentInput(query);
+      setCurrentInput(searchParams.get('query'));
     } catch (error) {
     }
 
@@ -113,6 +131,12 @@ export default function App() {
       setLoadMoreIsVisible(true);
     } else setLoadMoreIsVisible(false)
 
+  }
+
+  const updateQueryString=evt=>{
+    if(evt.target.value===null)
+    setSearchParams("");
+  else setSearchParams({query:evt.target.value});
   }
 
   return (<Suspense fallback={<CirclesWithBar
@@ -132,11 +156,19 @@ export default function App() {
     style={{ transform: 'translate(-50%, -50%)' }}
   />}>
 
+
   <Routes>
     <Route path='/' element={<Header />}>
       <Route path="goit-react-hw-05-movies" element={<MovieList movies={trandingMovies} click={onClickMovie} loadMoreIsVisible={loadMoreIsVisible} loadMore={handleLoadMore} />} />
-      <Route path="search" element={<Search movies={movies} onClickSubmit={onClickSubmit} click={onClickMovie} loadMore={handleLoadMoreForSearch} loadMoreIsVisible={loadMoreIsVisible} query={evt => setQuery(evt.target.value)} />}></Route>
-      <Route path='search/:id' element={<CurrentMoviePageLazy movie={currentMovie} />}>
+      <Route path="search" element={
+      <Search movies={movies} 
+        onClickSubmit={onClickSubmit} 
+        inputValue={searchParams.get('query')} 
+        click={onClickMovie} 
+        loadMore={handleLoadMoreForSearch} 
+        loadMoreIsVisible={loadMoreIsVisible} 
+        query={throttle(updateQueryString,4000)} />}></Route>
+      <Route path='search/:id' element={<CurrentMoviePageLazy movie={currentMovie}/>}>
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
         <Route path={'reviews'} element={<Reviews movie={currentMovie} apiComponent={apiComponent} />} />
       </Route>
