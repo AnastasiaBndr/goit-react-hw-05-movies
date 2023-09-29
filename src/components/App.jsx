@@ -159,7 +159,7 @@ export default function App() {
 
   <Routes>
     <Route path='/' element={<Header />}>
-      <Route path="goit-react-hw-05-movies" element={<MovieList movies={trandingMovies} click={onClickMovie} loadMoreIsVisible={loadMoreIsVisible} loadMore={handleLoadMore} />} />
+      <Route path="movies" element={<MovieList movies={trandingMovies} click={onClickMovie} loadMoreIsVisible={loadMoreIsVisible} loadMore={handleLoadMore} />} />
       <Route path="search" element={
       <Search movies={movies} 
         onClickSubmit={onClickSubmit} 
@@ -172,7 +172,7 @@ export default function App() {
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
         <Route path={'reviews'} element={<Reviews movie={currentMovie} apiComponent={apiComponent} />} />
       </Route>
-      <Route path='goit-react-hw-05-movies/:id' element={<CurrentMoviePageLazy movie={currentMovie} />}>
+      <Route path='movies/:id' element={<CurrentMoviePageLazy movie={currentMovie} />}>
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
         <Route path={'reviews'} element={<Reviews movie={currentMovie} apiComponent={apiComponent} />} />
       </Route>

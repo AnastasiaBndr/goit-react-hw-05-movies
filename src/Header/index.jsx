@@ -6,7 +6,7 @@ const Header = () => {
         <header>
             <nav>
                 <ul className="navbar">
-                    <NavLink activeClassName="active-button" to="/goit-react-hw-05-movies"><li className="header-item"><button>Home</button></li></NavLink>
+                    <NavLink activeClassName="active-button" to="/movies"><li className="header-item"><button>Home</button></li></NavLink>
                     <NavLink activeClassName="active-button" to='/search'><li className="header-item"><button>Movies</button></li></NavLink>
                 </ul>
             </nav>
