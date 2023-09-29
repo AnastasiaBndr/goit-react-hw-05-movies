@@ -114,9 +114,13 @@ export default function App() {
 
   return (<Routes>
     <Route path='/' element={<Header />}>
-      <Route path="goit-react-hw-05-movies" element={<MovieList movies={trandingMovies} click={onClickMovie} loadMoreIsVisible={loadMoreIsVisible} loadMore={handleLoadMore} />} />
+      <Route path="home" element={<MovieList movies={trandingMovies} click={onClickMovie} loadMoreIsVisible={loadMoreIsVisible} loadMore={handleLoadMore} />} />
       <Route path="search" element={<Search movies={movies} onClickSubmit={onClickSubmit} click={onClickMovie} loadMore={handleLoadMoreForSearch} loadMoreIsVisible={loadMoreIsVisible} query={evt => setQuery(evt.target.value)} />}></Route>
-      <Route path={currentMovie.id + ""} element={<CurrentMoviePage movie={currentMovie} />}>
+      <Route path='search/:id' element={<CurrentMoviePage movie={currentMovie} />}>
+        <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
+        <Route path={'reviews'} element={<Reviews movie={currentMovie} apiComponent={apiComponent} />} />
+      </Route>
+      <Route path='home/:id' element={<CurrentMoviePage movie={currentMovie} />}>
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
         <Route path={'reviews'} element={<Reviews movie={currentMovie} apiComponent={apiComponent} />} />
       </Route>

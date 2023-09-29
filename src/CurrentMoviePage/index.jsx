@@ -3,7 +3,7 @@ import './styles.css';
 
 const CurrentMoviePage = ({ movie }) => {
 
-
+    console.log(movie)
     return (<div className="movie-page-container">
         <img className="movie-large-image-item" src={movie.largeImageFullPath} alt={movie.name ?? movie.title} />
         <div className="description">
@@ -17,9 +17,9 @@ const CurrentMoviePage = ({ movie }) => {
             <p>Vote average:  {movie.vote_average}</p>
 
             <nav className="movie-page-navigation">
-                <Link to={"/" + movie.id + "/cast"}>
+                <Link to={"cast"}>
                     <h3>Cast</h3></Link>
-                <Link to={'/' + movie.id + "/reviews"}>
+                <Link to={"reviews"}>
                     <h3>Reviews</h3>
                 </Link>
             </nav>
