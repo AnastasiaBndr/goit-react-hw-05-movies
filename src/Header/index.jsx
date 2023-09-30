@@ -1,13 +1,15 @@
 import { Outlet, NavLink } from "react-router-dom"
 import './styles.css'
 
+
 const Header = () => {
     return (<>
         <header>
             <nav>
                 <ul className="navbar">
-                    <NavLink activeClassName="active-button" to="/movies"><li className="header-item"><button>Home</button></li></NavLink>
-                    <NavLink activeClassName="active-button" to='/search'><li className="header-item"><button>Movies</button></li></NavLink>
+                    <li className="header-item"><NavLink className="nav-element" to="/movies">Home</NavLink></li>
+                    <li className="header-item"><NavLink className="nav-element" to='/search'
+                    >Movies</NavLink></li>
                 </ul>
             </nav>
         </header>

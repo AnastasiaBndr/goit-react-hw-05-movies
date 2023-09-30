@@ -22,6 +22,7 @@ export default function App() {
   const [currentInput, setCurrentInput] = useState('');
   const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(false);
   const [searchParams, setSearchParams]=useSearchParams("");
+  const [loadMoreForSearchVisible, setLoadMoreForSearchVisible]=useState(true);
 
   useEffect(() => {
     apiComponent.fetchMoviesbyName1("", apiComponent.links.trendingUrl)
@@ -43,7 +44,7 @@ export default function App() {
   }, [])
 
   useEffect(() => {
-    apiComponent.fetchMoviesbyName1(searchParams.get('query'), apiComponent.links.searchMovieUrl)
+    apiComponent.fetchMoviesbyName1(currentInput, apiComponent.links.searchMovieUrl)
       .then(data => {
         data.results.filter(movie => movie.poster_path !== null).map(movie => {
           movie.smallImageFullPath = `https://image.tmdb.org/t/p/w200${movie.poster_path}?api_key=${apiComponent.getkey()}`;
@@ -57,7 +58,7 @@ export default function App() {
       }
       )
 
-  }, [searchParams])
+  }, [currentInput])
 
   const onClickMovie = async (movie) => {
     await localStorage.setItem("current_movie", JSON.stringify(movie));
@@ -100,8 +101,8 @@ export default function App() {
       .catch();
 
     if (page < moviesTemp) {
-      setLoadMoreIsVisible(true);
-    } else setLoadMoreIsVisible(false)
+      setLoadMoreForSearchVisible(true);
+    } else setLoadMoreForSearchVisible(false)
   }
 
   const onClickSubmit = async evt => {
@@ -166,7 +167,7 @@ export default function App() {
         inputValue={searchParams.get('query')} 
         click={onClickMovie} 
         loadMore={handleLoadMoreForSearch} 
-        loadMoreIsVisible={loadMoreIsVisible} 
+        loadMoreIsVisible={loadMoreForSearchVisible} 
         query={throttle(updateQueryString,4000)} />}></Route>
       <Route path='search/:id' element={<CurrentMoviePageLazy movie={currentMovie}/>}>
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />

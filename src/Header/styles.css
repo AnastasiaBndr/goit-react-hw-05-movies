@@ -1,4 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway);
+@import url(https://fonts.googleapis.com/css2?family=Dosis:wght@400;500&display=swap);
+
 
 header {
   width: 100%;
@@ -8,7 +9,7 @@ header {
   left: 0;
   background-color: #222;
   border-bottom: 6px solid coral;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Dosis', sans-serif;
   font-size: 18px;
 }
 
@@ -40,6 +41,15 @@ button {
 
 
 button:hover,
-button:focus, .active-button {
+button:focus, .nav-element:focus, .nav-element:hover, .nav-element.active {
   color: aqua;
+}
+
+.nav-element{
+  color: pink;
+  font: inherit;
+  cursor: pointer;
+  font-family: 'Dosis', sans-serif;
+
+  transition: color 0.4s ease;
 }
