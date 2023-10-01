@@ -23,7 +23,7 @@ export default function App() {
   const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(false);
   const [searchParams, setSearchParams]=useSearchParams("");
   const [loadMoreForSearchVisible, setLoadMoreForSearchVisible]=useState(true);
-  const [initialQuery, setInitialQuery] = useState(searchParams.get('query'));
+  const [initialQuery] = useState(searchParams.get('query'));
   useEffect(() => {
 
     if(initialQuery){
