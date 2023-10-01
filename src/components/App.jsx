@@ -23,11 +23,11 @@ export default function App() {
   const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(false);
   const [searchParams, setSearchParams]=useSearchParams("");
   const [loadMoreForSearchVisible, setLoadMoreForSearchVisible]=useState(true);
-  const [initialQuery] = useState(searchParams.get('query'));
-  useEffect(() => {
 
+  useEffect(() => {
+    const initialQuery=new URLSearchParams(window.location.search);
     if(initialQuery){
-          apiComponent.fetchMoviesbyName1(initialQuery, apiComponent.links.searchMovieUrl)
+          apiComponent.fetchMoviesbyName1(initialQuery.get('query'), apiComponent.links.searchMovieUrl)
       .then(data => {
         data.results.filter(movie => movie.poster_path !== null).map(movie => {
           movie.smallImageFullPath = `https://image.tmdb.org/t/p/w200${movie.poster_path}?api_key=${apiComponent.getkey()}`;
@@ -55,7 +55,7 @@ export default function App() {
       }
       )
       .catch();
-  }, [initialQuery])
+  }, [])
 
  
   useEffect(() => {
