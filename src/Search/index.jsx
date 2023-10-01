@@ -3,9 +3,10 @@ import SearchIcon from './icons.svg';
 import { Link, useLocation } from 'react-router-dom'
 
 
-const Search = ({ movies, click, loadMore, onClickSubmit, query, loadMoreIsVisible, inputValue }) => {
+const Search = ({movies, click, loadMore, onClickSubmit,query,loadMoreIsVisible, inputValue }) => {
     
     const location = useLocation();
+
     return (<div className="movies-list-container">
         <form className="SearchForm" onSubmit={onClickSubmit}>
             <button type="button" className="SearchForm-button" onClick={onClickSubmit}>

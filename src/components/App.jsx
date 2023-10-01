@@ -12,19 +12,34 @@ import Search from 'Search';
 
 const apiComponent = new ApiComponent();
 const CurrentMoviePageLazy=lazy(()=>import("CurrentMoviePage"));
-const throttle = require('lodash.throttle');
 
 export default function App() {
 
   const [movies, setMovies] = useState([]);
+  const [searchMovies, setSearchMovies] = useState([]);
   const [trandingMovies, setTrandingMovies] = useState([]);
   const [currentMovie, setCurrentMovie] = useState({});
   const [currentInput, setCurrentInput] = useState('');
   const [loadMoreIsVisible, setLoadMoreIsVisible] = useState(false);
   const [searchParams, setSearchParams]=useSearchParams("");
   const [loadMoreForSearchVisible, setLoadMoreForSearchVisible]=useState(true);
-
+  const [initialQuery, setInitialQuery] = useState(searchParams.get('query'));
   useEffect(() => {
+
+    if(initialQuery){
+          apiComponent.fetchMoviesbyName1(initialQuery, apiComponent.links.searchMovieUrl)
+      .then(data => {
+        data.results.filter(movie => movie.poster_path !== null).map(movie => {
+          movie.smallImageFullPath = `https://image.tmdb.org/t/p/w200${movie.poster_path}?api_key=${apiComponent.getkey()}`;
+          movie.largeImageFullPath = `https://image.tmdb.org/t/p/w400${movie.poster_path}?api_key=${apiComponent.getkey()}`;
+          return movie;
+        });
+        setSearchMovies(data.results);
+        setLoadMoreIsVisible(true);
+      }
+      )
+      .catch();
+    }
     apiComponent.fetchMoviesbyName1("", apiComponent.links.trendingUrl)
       .then(data => {
         data.results.filter(movie => movie.poster_path !== null).map(movie => {
@@ -40,9 +55,9 @@ export default function App() {
       }
       )
       .catch();
+  }, [initialQuery])
 
-  }, [])
-
+ 
   useEffect(() => {
     apiComponent.fetchMoviesbyName1(currentInput, apiComponent.links.searchMovieUrl)
       .then(data => {
@@ -51,7 +66,7 @@ export default function App() {
           movie.largeImageFullPath = `https://image.tmdb.org/t/p/w400${movie.poster_path}?api_key=${apiComponent.getkey()}`;
           return movie;
         });
-        setMovies(data.results);
+        setSearchMovies(data.results);
         setLoadMoreIsVisible(true);
         if (localStorage.getItem("current_movie") !== null)
           setCurrentMovie(JSON.parse(localStorage.getItem("current_movie")));
@@ -108,6 +123,7 @@ export default function App() {
   const onClickSubmit = async evt => {
     evt.preventDefault();
 
+    localStorage.setItem('searchParams', searchParams.get('query'));
     apiComponent.page = 1;
     var moviesTemp;
 
@@ -125,6 +141,7 @@ export default function App() {
       moviesTemp = data.total_pages;
       setMovies(updatedMovies);
       setCurrentInput(searchParams.get('query'));
+      localStorage.setItem("search-movies", JSON.stringify(updatedMovies));
     } catch (error) {
     }
 
@@ -136,6 +153,7 @@ export default function App() {
 
   const updateQueryString=evt=>{
     if(evt.target.value===null)
+    
     setSearchParams("");
   else setSearchParams({query:evt.target.value});
   }
@@ -162,13 +180,14 @@ export default function App() {
     <Route path='/' element={<Header />}>
       <Route path="movies" element={<MovieList movies={trandingMovies} click={onClickMovie} loadMoreIsVisible={loadMoreIsVisible} loadMore={handleLoadMore} />} />
       <Route path="search" element={
-      <Search movies={movies} 
+      <Search movies={searchMovies}
         onClickSubmit={onClickSubmit} 
         inputValue={searchParams.get('query')} 
         click={onClickMovie} 
         loadMore={handleLoadMoreForSearch} 
         loadMoreIsVisible={loadMoreForSearchVisible} 
-        query={throttle(updateQueryString,4000)} />}></Route>
+        query={updateQueryString}
+        searchParams={searchParams.get('query')} />}></Route>
       <Route path='search/:id' element={<CurrentMoviePageLazy movie={currentMovie}/>}>
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
         <Route path={'reviews'} element={<Reviews movie={currentMovie} apiComponent={apiComponent} />} />
