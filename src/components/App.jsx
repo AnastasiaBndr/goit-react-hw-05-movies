@@ -57,24 +57,6 @@ export default function App() {
       .catch();
   }, [])
 
- 
-  useEffect(() => {
-    apiComponent.fetchMoviesbyName1(currentInput, apiComponent.links.searchMovieUrl)
-      .then(data => {
-        data.results.filter(movie => movie.poster_path !== null).map(movie => {
-          movie.smallImageFullPath = `https://image.tmdb.org/t/p/w200${movie.poster_path}?api_key=${apiComponent.getkey()}`;
-          movie.largeImageFullPath = `https://image.tmdb.org/t/p/w400${movie.poster_path}?api_key=${apiComponent.getkey()}`;
-          return movie;
-        });
-        setSearchMovies(data.results);
-        setLoadMoreIsVisible(true);
-        if (localStorage.getItem("current_movie") !== null)
-          setCurrentMovie(JSON.parse(localStorage.getItem("current_movie")));
-      }
-      )
-
-  }, [currentInput])
-
   const onClickMovie = async (movie) => {
     await localStorage.setItem("current_movie", JSON.stringify(movie));
     await setCurrentMovie(movie);
@@ -139,6 +121,7 @@ export default function App() {
         }));
 
       moviesTemp = data.total_pages;
+      setSearchMovies(updatedMovies);
       setMovies(updatedMovies);
       setCurrentInput(searchParams.get('query'));
       localStorage.setItem("search-movies", JSON.stringify(updatedMovies));
@@ -175,10 +158,9 @@ export default function App() {
     style={{ transform: 'translate(-50%, -50%)' }}
   />}>
 
-
+<Header />
   <Routes>
-    <Route path='/' element={<Header />}>
-      <Route path="movies" element={<MovieList movies={trandingMovies} click={onClickMovie} loadMoreIsVisible={loadMoreIsVisible} loadMore={handleLoadMore} />} />
+      <Route path="/" element={<MovieList movies={trandingMovies} click={onClickMovie} loadMoreIsVisible={loadMoreIsVisible} loadMore={handleLoadMore} />} />
       <Route path="search" element={
       <Search movies={searchMovies}
         onClickSubmit={onClickSubmit} 
@@ -196,7 +178,7 @@ export default function App() {
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
         <Route path={'reviews'} element={<Reviews movie={currentMovie} apiComponent={apiComponent} />} />
       </Route>
-    </Route>
+    
 
   </Routes></Suspense>
   );
