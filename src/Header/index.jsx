@@ -1,4 +1,4 @@
-import { Outlet, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import './styles.css'
 
 
@@ -13,7 +13,6 @@ const Header = () => {
                 </ul>
             </nav>
         </header>
-        <Outlet className="outlet" />
     </>)
 }
 
