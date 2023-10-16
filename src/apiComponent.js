@@ -28,7 +28,7 @@ export class ApiComponent {
     api_key: this.#KEY,
   };
 
-  fetchMoviesbyName1(query, url) {
+  fetchMoviesbyName(query, url) {
     const options = {
       method: 'GET',
       url: url,
@@ -42,7 +42,6 @@ export class ApiComponent {
           'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNGRiNWJkN2U5YWExY2M0MzBhZjAwYzVhMDU2ZDAxMCIsInN1YiI6IjY1MTJjM2YyOGUyYmE2MDEwMTlmZjg5YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.7zJPhqUXyDij87cKqpJpgtQnm376t0iMEdo8YRFnUG4',
       },
     };
-
 
     return axios
       .request(options)
