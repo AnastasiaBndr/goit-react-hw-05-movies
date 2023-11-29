@@ -9,6 +9,7 @@ import MovieList from 'MovieList';
 import Cast from 'Cast';
 import Reviews from 'Reviews';
 import Search from 'Search';
+import Videos from 'Videos';
 
 const apiComponent = new ApiComponent();
 const CurrentMoviePageLazy = lazy(() => import("CurrentMoviePage"));
@@ -111,7 +112,6 @@ export default function App() {
 
     try {
       const data = await apiComponent.fetchMoviesbyName(searchParams.get('query'), apiComponent.links.searchMovieUrl);
-
       const updatedMovies = data.results
         .filter((movie) => movie.poster_path !== null)
         .map((movie) => ({
@@ -173,10 +173,12 @@ export default function App() {
       <Route path='search/:id' element={<CurrentMoviePageLazy movie={currentMovie} />}>
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
         <Route path={'reviews'} element={<Reviews movie={currentMovie} apiComponent={apiComponent} />} />
+        <Route path={'videos'} element={<Videos movie={currentMovie} apiComponent={apiComponent} />} />
       </Route>
       <Route path='movies/:id' element={<CurrentMoviePageLazy movie={currentMovie} />}>
         <Route path={'cast'} element={<Cast movie={currentMovie} apiComponent={apiComponent} />} />
         <Route path={'reviews'} element={<Reviews movie={currentMovie} apiComponent={apiComponent} />} />
+        <Route path={'videos'} element={<Videos movie={currentMovie} apiComponent={apiComponent} />} />
       </Route>
 
 

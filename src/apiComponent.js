@@ -18,6 +18,7 @@ export class ApiComponent {
   params = {
     reviews: '/reviews',
     credits: '/credits',
+    videos: '/videos',
   };
 
   getkey() {
@@ -70,6 +71,7 @@ export class ApiComponent {
     return axios
       .request(options)
       .then(function (response) {
+        console.log(options.url);
         return response.data;
       })
       .catch(function (error) {
