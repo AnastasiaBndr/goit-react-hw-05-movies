@@ -5,13 +5,18 @@ const Reviews = ({ movie, apiComponent }) => {
     const [reviews, setReviews] = useState(null);
     useEffect(() => {
         async function fetchMovieInfo() {
-            const review = await apiComponent.fetchMoviesById(movie.id, apiComponent.links.details, apiComponent.params.reviews);
+            if (movie.media_type === 'movie') {
+                const review = await apiComponent.fetchMoviesById(movie.id, apiComponent.links.details, apiComponent.params.reviews);
+                setReviews(review);
+            } else if (movie.media_type === 'tv') {
+                const review = await apiComponent.fetchMoviesById(movie.id, apiComponent.links.seriesDetails, apiComponent.params.reviews);
+                setReviews(review)
+            }
 
-            setReviews(review);
         }
 
         fetchMovieInfo();
-    }, [apiComponent, movie.id]);
+    }, [apiComponent, movie.id, movie.media_type]);
 
 
     return (<><ul className="reviews-container">

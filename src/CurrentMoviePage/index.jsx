@@ -12,7 +12,7 @@ const CurrentMoviePage = ({ movie }) => {
             <img className="movie-large-image-item" src={movie.largeImageFullPath} alt={movie.name ?? movie.title} />
             <div className="description">
                 <h1>{movie.name ?? movie.title} / {movie.original_name ?? movie.original_title}</h1>
-
+                {console.log(movie)}
                 <p>{movie.overview}</p>
                 <p>Language: {movie.original_language}</p>
                 <p>First air date: {movie.first_air_date}</p>

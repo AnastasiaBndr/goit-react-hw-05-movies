@@ -13,6 +13,7 @@ export class ApiComponent {
     credits: 'https://api.themoviedb.org/3/credit/credit_id',
     reviews: 'https://api.themoviedb.org/3/movie/reviews',
     details: 'https://api.themoviedb.org/3/movie/',
+    seriesDetails: 'https://api.themoviedb.org/3/tv/',
   };
 
   params = {

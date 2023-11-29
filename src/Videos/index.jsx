@@ -6,18 +6,25 @@ const Videos = ({ movie, apiComponent }) => {
 
     useEffect(() => {
         async function fetchMovieInfo() {
-            const video = await apiComponent.fetchMoviesById(movie.id, apiComponent.links.details, apiComponent.params.videos);
+            if (movie.media_type === 'movie') {
+                const video = await apiComponent.fetchMoviesById(movie.id, apiComponent.links.details, apiComponent.params.videos);
+                const availableVideos = video.results.filter(video => video.name.includes("removed") !== true)
+                setVideo(availableVideos);
+            } else if (movie.media_type === 'tv') {
+                const video = await apiComponent.fetchMoviesById(movie.id, apiComponent.links.seriesDetails, apiComponent.params.videos);
+                const availableVideos = video.results.filter(video => video.name.includes("removed") !== true)
+                setVideo(availableVideos);
+            }
 
-            setVideo(video);
         }
 
         fetchMovieInfo();
-    }, [apiComponent, movie.id]);
+    }, [apiComponent, movie.id, movie.media_type]);
 
 
     return (<>
         <ul className="videos-container">
-            {video ? video.results.map(video => {
+            {video ? video.map(video => {
                 return (
                     <li className="video-item" key={video.id}>
                         <p className="author">{video.name}</p>

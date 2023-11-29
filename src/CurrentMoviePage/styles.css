@@ -14,13 +14,16 @@
 
 .movie-page-navigation {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   width: 100%;
 }
 
 .go-back-button {
   display: block;
   margin-top: 100px;
+}
+.movie-links-item {
+  margin: 0 15% 0 15%;
 }
 
 .movie-links-item.active {
