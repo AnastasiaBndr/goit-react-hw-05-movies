@@ -1,10 +1,12 @@
-import { Outlet, Link, useLocation } from "react-router-dom";
+import { Outlet, Link, useLocation, NavLink } from "react-router-dom";
 import { useRef } from "react";
 import './styles.css';
 
 const CurrentMoviePage = ({ movie }) => {
     const location = useLocation();
     const backLinkLocationRef = useRef(location.state?.from ?? "/search");
+
+
     return (<><Link to={backLinkLocationRef.current}><button className="go-back-button">Go back</button></Link>
         <div className="movie-page-container">
             <img className="movie-large-image-item" src={movie.largeImageFullPath} alt={movie.name ?? movie.title} />
@@ -19,14 +21,14 @@ const CurrentMoviePage = ({ movie }) => {
                 <p>Vote average:  {movie.vote_average}</p>
 
                 <nav className="movie-page-navigation">
-                    <Link to={"cast"}>
-                        <h3>Cast</h3></Link>
-                    <Link to={"reviews"}>
+                    <NavLink className="movie-links-item" to={"cast"}>
+                        <h3>Cast</h3></NavLink>
+                    <NavLink className="movie-links-item" to={"reviews"}>
                         <h3>Reviews</h3>
-                    </Link>
-                    <Link to={"videos"}>
+                    </NavLink>
+                    <NavLink className="movie-links-item" to={"videos"}>
                         <h3>Videos</h3>
-                    </Link>
+                    </NavLink>
                 </nav>
 
                 <Outlet />

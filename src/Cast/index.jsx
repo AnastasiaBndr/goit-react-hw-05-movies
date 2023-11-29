@@ -24,7 +24,6 @@ const Cast = ({ movie, apiComponent }) => {
                 console.log(movieInfo);
             }
 
-
         }
 
         fetchMovieInfo();

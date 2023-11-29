@@ -14,6 +14,7 @@ import Videos from 'Videos';
 const apiComponent = new ApiComponent();
 const CurrentMoviePageLazy = lazy(() => import("CurrentMoviePage"));
 
+
 export default function App() {
 
   const [movies, setMovies] = useState([]);

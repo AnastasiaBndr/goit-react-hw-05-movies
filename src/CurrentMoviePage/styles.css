@@ -15,9 +15,14 @@
 .movie-page-navigation {
   display: flex;
   justify-content: space-around;
+  width: 100%;
 }
 
-.go-back-button{
+.go-back-button {
   display: block;
   margin-top: 100px;
+}
+
+.movie-links-item.active {
+  color: coral;
 }
