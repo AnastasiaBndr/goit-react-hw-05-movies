@@ -24,3 +24,7 @@
   margin: 20px;
   text-align: center;
 }
+
+.author {
+  max-width: 420px;
+}
